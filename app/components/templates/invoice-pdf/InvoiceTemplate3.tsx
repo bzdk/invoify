@@ -27,18 +27,19 @@ const InvoiceTemplate = (data: InvoiceType) => {
 							alt={`Logo of ${sender.name}`}
 						/>
 					)}
-					<h1 className='mt-2 text-lg md:text-xl font-semibold text-blue-600'>Inspirata Publishing</h1>
-					<h1 className='mt-2 text-lg md:text-xl font-semibold text-blue-600'>(Hong Kong) Limited</h1>
+					<h2 className='mt-2 text-lg md:text-xl font-semibold text-blue-600'>Inspirata Publishing (Hong Kong) Limited</h2>
 				</div>
 				<div className='text-right'>
-					<h2 className='text-2xl md:text-3xl font-semibold text-gray-800'>Donation Receipt #</h2>
-					<span className='mt-1 block text-gray-500'>{details.invoiceNumber}</span>
+					<h2 className='text-2xl md:text-3xl font-semibold text-gray-800'>Donation Receipt</h2>
+					<span className='mt-1 block text-gray-500'># {details.invoiceNumber}</span>
 					<address className='mt-4 not-italic text-gray-800'>
-						Flat D, 9/F, Metex House, 24-32 Fui Yiu Kok St.， Tsuen Wan, Hong Kong
+						Flat D, 9/F, Metex House, 24-32 Fui Yiu Kok St.
 						<br />
-						Phone：（852） 3188 5591
+						Tsuen Wan, Hong Kong
 						<br />
-						Fax：（852） 3585 0400
+						Phone：（852）3188 5591
+						<br />
+						Fax：（852）3585 0400
 						<br />
 					</address>
 				</div>
@@ -82,6 +83,7 @@ const InvoiceTemplate = (data: InvoiceType) => {
 						<span className='font-semibold text-md text-gray-800'>
 							<p className='text-sm'>
 								This is a receipt for your gracious donation to Inspirata Publishing （Hong Kong） Limited. Your support is deeply appreciated and makes a significant difference in our mission.</p>
+							<br/>
 							<p className='text-sm'>
 								Inspirata Publishing is a nonprofit under Section 88 of the Inland Revenue Ordinance. Donations to Inspirata Publishing are tax-exemptible in Hong Kong. Please keep this receipt for your record. No goods or services were given to you by Inspirata Publishing in exchange for your donation.</p>
 						</span>
