@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Chromium
-import chromium from "@sparticuz/chromium";
-
 // Helpers
 import { getInvoiceTemplate } from "@/lib/helpers";
 
 // Variables
-import { CHROMIUM_EXECUTABLE_PATH, ENV, TAILWIND_CDN } from "@/lib/variables";
+import { ENV, TAILWIND_CDN } from "@/lib/variables";
 
 // Types
 import { InvoiceType } from "@/types";
@@ -34,9 +31,17 @@ export async function generatePdfService(req: NextRequest) {
 		if (ENV === "production") {
 			const puppeteer = await import("puppeteer-core");
 			browser = await puppeteer.launch({
-				args: [...chromium.args, "--disable-dev-shm-usage"],
-				defaultViewport: chromium.defaultViewport,
-				executablePath: await chromium.executablePath(CHROMIUM_EXECUTABLE_PATH),
+				args: [
+					"--no-sandbox",
+					"--disable-setuid-sandbox",
+					"--disable-dev-shm-usage",
+					"--disable-gpu",
+					"--no-first-run",
+					"--no-zygote",
+					"--single-process",
+					"--disable-extensions"
+				],
+				executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium",
 				headless: true,
 				ignoreHTTPSErrors: true,
 			});
