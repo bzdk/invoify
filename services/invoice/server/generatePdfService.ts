@@ -17,6 +17,61 @@ import { InvoiceType } from "@/types";
  * @throws {Error} If there is an error during the PDF generation process.
  * @returns {Promise<NextResponse>} A promise that resolves to a NextResponse object containing the generated PDF.
  */
+async function launchBrowser(retryCount = 0): Promise<any> {
+	const maxRetries = 3;
+	
+	try {
+		if (ENV === "production") {
+			const puppeteer = await import("puppeteer-core");
+			return await puppeteer.launch({
+				args: [
+					"--no-sandbox",
+					"--disable-setuid-sandbox",
+					"--disable-dev-shm-usage",
+					"--disable-gpu",
+					"--no-first-run",
+					"--no-zygote",
+					"--disable-background-timer-throttling",
+					"--disable-backgrounding-occluded-windows",
+					"--disable-renderer-backgrounding",
+					"--disable-features=TranslateUI",
+					"--disable-ipc-flooding-protection",
+					"--disable-default-apps",
+					"--disable-extensions",
+					"--disable-plugins",
+					"--disable-sync",
+					"--disable-translate",
+					"--hide-scrollbars",
+					"--mute-audio",
+					"--no-default-browser-check",
+					"--safebrowsing-disable-auto-update",
+					"--disable-web-security",
+					"--disable-features=VizDisplayCompositor",
+					"--memory-pressure-off",
+					"--max_old_space_size=4096"
+				],
+				executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium",
+				headless: true,
+				ignoreHTTPSErrors: true,
+				timeout: 30000,
+			});
+		} else {
+			const puppeteer = await import("puppeteer");
+			return await puppeteer.launch({
+				args: ["--no-sandbox", "--disable-setuid-sandbox"],
+				headless: "new",
+			});
+		}
+	} catch (error) {
+		if (retryCount < maxRetries) {
+			console.log(`Browser launch attempt ${retryCount + 1} failed, retrying...`);
+			await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+			return launchBrowser(retryCount + 1);
+		}
+		throw error;
+	}
+}
+
 export async function generatePdfService(req: NextRequest) {
 	const body: InvoiceType = await req.json();
 	let browser;
@@ -28,30 +83,7 @@ export async function generatePdfService(req: NextRequest) {
 		const InvoiceTemplate = await getInvoiceTemplate(templateId);
 		const htmlTemplate = ReactDOMServer.renderToStaticMarkup(InvoiceTemplate(body));
 
-		if (ENV === "production") {
-			const puppeteer = await import("puppeteer-core");
-			browser = await puppeteer.launch({
-				args: [
-					"--no-sandbox",
-					"--disable-setuid-sandbox",
-					"--disable-dev-shm-usage",
-					"--disable-gpu",
-					"--no-first-run",
-					"--no-zygote",
-					"--single-process",
-					"--disable-extensions"
-				],
-				executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium",
-				headless: true,
-				ignoreHTTPSErrors: true,
-			});
-		} else {
-			const puppeteer = await import("puppeteer");
-			browser = await puppeteer.launch({
-				args: ["--no-sandbox", "--disable-setuid-sandbox"],
-				headless: "new",
-			});
-		}
+		browser = await launchBrowser();
 
 		if (!browser) {
 			throw new Error("Failed to launch browser");
