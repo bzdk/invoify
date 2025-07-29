@@ -68,6 +68,8 @@ Follow these instructions to get Invoify up and running on your local machine.
 
 ### Installation
 
+#### Option 1: Local Development
+
 1. Clone the repository:
 
    ```bash
@@ -90,6 +92,33 @@ Follow these instructions to get Invoify up and running on your local machine.
     npm run dev
     ```
 5. Open your web browser and access the application at [http://localhost:3000](http://localhost:3000)
+
+#### Option 2: Docker Deployment
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/al1abb/invoify.git
+   cd invoify
+   ```
+
+2. Build and run with Docker:
+
+   ```bash
+   # Build the Docker image
+   docker build -t invoify .
+   
+   # Run the container
+   docker run -p 3000:3000 invoify
+   ```
+
+3. Or use the provided test script:
+
+   ```bash
+   ./test-docker.sh
+   ```
+
+4. Open your web browser and access the application at [http://localhost:3000](http://localhost:3000)
 <!-- LICENSE -->
 ## License
 

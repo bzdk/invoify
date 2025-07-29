@@ -31,8 +31,9 @@ export async function generatePdfService(req: NextRequest) {
 		const InvoiceTemplate = await getInvoiceTemplate(templateId);
 		const htmlTemplate = ReactDOMServer.renderToStaticMarkup(InvoiceTemplate(body));
 
+		const puppeteer = await import("puppeteer-core");
+		
 		if (ENV === "production") {
-			const puppeteer = await import("puppeteer-core");
 			browser = await puppeteer.launch({
 				args: [...chromium.args, "--disable-dev-shm-usage"],
 				defaultViewport: chromium.defaultViewport,
@@ -41,11 +42,20 @@ export async function generatePdfService(req: NextRequest) {
 				ignoreHTTPSErrors: true,
 			});
 		} else {
-			const puppeteer = await import("puppeteer");
-			browser = await puppeteer.launch({
-				args: ["--no-sandbox", "--disable-setuid-sandbox"],
-				headless: "new",
-			});
+			// For development, use system Chromium if available, otherwise use the bundled one
+			const systemChromiumPath = process.env.PUPPETEER_EXECUTABLE_PATH;
+			if (systemChromiumPath) {
+				browser = await puppeteer.launch({
+					args: ["--no-sandbox", "--disable-setuid-sandbox"],
+					executablePath: systemChromiumPath,
+					headless: true,
+				});
+			} else {
+				browser = await puppeteer.launch({
+					args: ["--no-sandbox", "--disable-setuid-sandbox"],
+					headless: true,
+				});
+			}
 		}
 
 		if (!browser) {
