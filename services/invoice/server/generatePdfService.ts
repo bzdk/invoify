@@ -110,7 +110,7 @@ export async function generatePdfService(req: NextRequest) {
 		}
 
 		// Wait a bit for any remaining resources to load
-		await page.waitForTimeout(2000);
+		await new Promise(resolve => setTimeout(resolve, 2000));
 
 		const pdf: Buffer = await page.pdf({
 			format: "a4",
