@@ -37,7 +37,7 @@ export async function generatePdfService(req: NextRequest) {
 		const systemChromiumPath = process.env.PUPPETEER_EXECUTABLE_PATH;
 		
 		if (systemChromiumPath) {
-			// Use system-installed Chromium
+			// Use system-installed Chromium with Docker-optimized settings
 			browser = await puppeteer.launch({
 				args: [
 					"--no-sandbox",
@@ -47,11 +47,29 @@ export async function generatePdfService(req: NextRequest) {
 					"--no-first-run",
 					"--no-zygote",
 					"--single-process",
-					"--disable-extensions"
+					"--disable-extensions",
+					"--disable-background-timer-throttling",
+					"--disable-backgrounding-occluded-windows",
+					"--disable-renderer-backgrounding",
+					"--disable-features=TranslateUI",
+					"--disable-ipc-flooding-protection",
+					"--disable-default-apps",
+					"--disable-sync",
+					"--disable-translate",
+					"--hide-scrollbars",
+					"--mute-audio",
+					"--no-default-browser-check",
+					"--safebrowsing-disable-auto-update",
+					"--disable-web-security",
+					"--disable-features=VizDisplayCompositor",
+					"--memory-pressure-off",
+					"--max_old_space_size=4096"
 				],
 				executablePath: systemChromiumPath,
 				headless: true,
 				ignoreHTTPSErrors: true,
+				timeout: 30000,
+				protocolTimeout: 30000,
 			});
 		} else {
 			// Fallback to @sparticuz/chromium if system Chromium is not available
@@ -61,6 +79,8 @@ export async function generatePdfService(req: NextRequest) {
 				executablePath: await chromium.executablePath(CHROMIUM_EXECUTABLE_PATH),
 				headless: true,
 				ignoreHTTPSErrors: true,
+				timeout: 30000,
+				protocolTimeout: 30000,
 			});
 		}
 
@@ -69,19 +89,40 @@ export async function generatePdfService(req: NextRequest) {
 		}
 
 		page = await browser.newPage();
-		await page.setContent(await htmlTemplate, {
-			waitUntil: ["networkidle0", "load", "domcontentloaded"],
+		
+		// Set viewport and user agent for better compatibility
+		await page.setViewport({ width: 1200, height: 800 });
+		await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+		
+		// Set content with more robust waiting strategy
+		await page.setContent(htmlTemplate, {
+			waitUntil: "networkidle2",
 			timeout: 30000,
 		});
 
-		await page.addStyleTag({
-			url: TAILWIND_CDN,
-		});
+		// Add Tailwind CSS with timeout
+		try {
+			await page.addStyleTag({
+				url: TAILWIND_CDN,
+			});
+		} catch (error) {
+			console.warn("Failed to load Tailwind CDN, continuing without it:", error);
+		}
+
+		// Wait a bit for any remaining resources to load
+		await page.waitForTimeout(2000);
 
 		const pdf: Buffer = await page.pdf({
 			format: "a4",
 			printBackground: true,
 			preferCSSPageSize: true,
+			margin: {
+				top: "20px",
+				right: "20px",
+				bottom: "20px",
+				left: "20px"
+			},
+			timeout: 30000,
 		});
 
 		return new NextResponse(new Blob([new Uint8Array(pdf)], { type: "application/pdf" }), {

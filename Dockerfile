@@ -12,7 +12,8 @@ RUN apk add --no-cache \
 
 # Set environment variables for Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    NODE_OPTIONS="--max-old-space-size=4096"
 
 # Verify Chromium installation and set permissions
 RUN chromium-browser --version && \
@@ -39,7 +40,8 @@ RUN apk add --no-cache \
 
 # Set environment variables for Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    NODE_OPTIONS="--max-old-space-size=4096"
 
 # Verify Chromium installation and set permissions
 RUN chromium-browser --version && \
