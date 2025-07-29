@@ -19,23 +19,24 @@ const InvoiceTemplate = (data: InvoiceType) => {
 		<InvoiceLayout data={data}>
 			<div className='flex justify-between'>
 				<div>
-					{details.invoiceLogo && (
-						<img
-							src='https://endao.vip/assets/images/logo.png'
-							width={140}
-							height={100}
-							alt={`Logo of ${sender.name}`}
-						/>
-					)}
-					<h2 className='mt-2 text-lg md:text-xl font-semibold text-blue-600'>Inspirata Publishing (Hong Kong) Limited</h2>
+					<img
+						src='https://endao.vip/assets/images/logo.png'
+						width={140}
+						height={100}
+						alt={`Logo of ${sender.name}`}
+					/>
+					<h2 className='mt-2 text-lg md:text-xl font-semibold text-blue-600'>Inspirata Publishing <br /> 
+					(Hong Kong) Limited</h2>
 				</div>
 				<div className='text-right'>
 					<h2 className='text-2xl md:text-3xl font-semibold text-gray-800'>Donation Receipt</h2>
 					<span className='mt-1 block text-gray-500'># {details.invoiceNumber}</span>
 					<address className='mt-4 not-italic text-gray-800'>
-						Flat D, 9/F, Metex House, 24-32 Fui Yiu Kok St.
+						Flat D, 9/F, Metex House
 						<br />
-						Tsuen Wan, Hong Kong
+						24-32 Fui Yiu Kok St.Tsuen Wan
+						<br />
+						Hong Kong
 						<br />
 						Phone：（852）3188 5591
 						<br />
