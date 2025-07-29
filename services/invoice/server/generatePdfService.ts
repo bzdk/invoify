@@ -131,11 +131,11 @@ export async function generatePdfService(req: NextRequest) {
 			}
 		}
 		if (browser) {
-			try {
-				const pages = await browser.pages();
-				await Promise.all(pages.map((p) => p.close()));
-				await browser.close();
-			} catch (e) {
+							try {
+					const pages = await browser.pages();
+					await Promise.all(pages.map((p: any) => p.close()));
+					await browser.close();
+				} catch (e) {
 				console.error("Error closing browser:", e);
 			}
 		}
