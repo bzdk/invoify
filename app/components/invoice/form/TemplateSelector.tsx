@@ -19,11 +19,13 @@ import {
     BaseButton,
     InvoiceTemplate1,
     InvoiceTemplate2,
+    InvoiceTemplate3,
 } from "@/app/components";
 
 // Template images
 import template1 from "@/public/assets/img/invoice-1-example.png";
 import template2 from "@/public/assets/img/invoice-2-example.png";
+import template3 from "@/public/assets/img/invoice-1-example.png";
 
 // Icons
 import { Check } from "lucide-react";
@@ -38,16 +40,23 @@ const TemplateSelector = () => {
         {
             id: 1,
             name: "Template 1",
-            description: "Template 1 description",
+            description: "Sales Template 1",
             img: template1,
             component: <InvoiceTemplate1 {...formValues} />,
         },
         {
             id: 2,
             name: "Template 2",
-            description: "Second template",
+            description: "Sales Template 2",
             img: template2,
             component: <InvoiceTemplate2 {...formValues} />,
+        },
+        {
+            id: 3,
+            name: "Template 3",
+            description: "Donation Receipt",
+            img: template3,
+            component: <InvoiceTemplate3 {...formValues} />,
         },
     ];
     return (
