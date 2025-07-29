@@ -31,7 +31,11 @@ export async function generatePdfService(req: NextRequest) {
 		const InvoiceTemplate = await getInvoiceTemplate(templateId);
 		const htmlTemplate = ReactDOMServer.renderToStaticMarkup(InvoiceTemplate(body));
 
-		if (ENV === "production") {
+		// Check if running in Docker environment
+		const isDocker = process.env.PUPPETEER_EXECUTABLE_PATH === "/usr/bin/chromium-browser";
+
+		if (ENV === "production" && !isDocker) {
+			// Production environment with @sparticuz/chromium
 			const puppeteer = await import("puppeteer-core");
 			browser = await puppeteer.launch({
 				args: [...chromium.args, "--disable-dev-shm-usage"],
@@ -41,11 +45,28 @@ export async function generatePdfService(req: NextRequest) {
 				ignoreHTTPSErrors: true,
 			});
 		} else {
+			// Development environment or Docker environment
 			const puppeteer = await import("puppeteer");
-			browser = await puppeteer.launch({
-				args: ["--no-sandbox", "--disable-setuid-sandbox"],
+			const launchOptions: any = {
+				args: [
+					"--no-sandbox",
+					"--disable-setuid-sandbox",
+					"--disable-dev-shm-usage",
+					"--disable-gpu",
+					"--no-first-run",
+					"--no-zygote",
+					"--single-process",
+					"--disable-extensions"
+				],
 				headless: "new",
-			});
+			};
+
+			// Use system Chromium in Docker
+			if (isDocker) {
+				launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+			}
+
+			browser = await puppeteer.launch(launchOptions);
 		}
 
 		if (!browser) {
