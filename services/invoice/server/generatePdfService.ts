@@ -33,7 +33,28 @@ export async function generatePdfService(req: NextRequest) {
 
 		const puppeteer = await import("puppeteer-core");
 		
-		if (ENV === "production") {
+		// Use system Chromium in Docker environment
+		const systemChromiumPath = process.env.PUPPETEER_EXECUTABLE_PATH;
+		
+		if (systemChromiumPath) {
+			// Use system-installed Chromium
+			browser = await puppeteer.launch({
+				args: [
+					"--no-sandbox",
+					"--disable-setuid-sandbox",
+					"--disable-dev-shm-usage",
+					"--disable-gpu",
+					"--no-first-run",
+					"--no-zygote",
+					"--single-process",
+					"--disable-extensions"
+				],
+				executablePath: systemChromiumPath,
+				headless: true,
+				ignoreHTTPSErrors: true,
+			});
+		} else {
+			// Fallback to @sparticuz/chromium if system Chromium is not available
 			browser = await puppeteer.launch({
 				args: [...chromium.args, "--disable-dev-shm-usage"],
 				defaultViewport: chromium.defaultViewport,
@@ -41,21 +62,6 @@ export async function generatePdfService(req: NextRequest) {
 				headless: true,
 				ignoreHTTPSErrors: true,
 			});
-		} else {
-			// For development, use system Chromium if available, otherwise use the bundled one
-			const systemChromiumPath = process.env.PUPPETEER_EXECUTABLE_PATH;
-			if (systemChromiumPath) {
-				browser = await puppeteer.launch({
-					args: ["--no-sandbox", "--disable-setuid-sandbox"],
-					executablePath: systemChromiumPath,
-					headless: true,
-				});
-			} else {
-				browser = await puppeteer.launch({
-					args: ["--no-sandbox", "--disable-setuid-sandbox"],
-					headless: true,
-				});
-			}
 		}
 
 		if (!browser) {

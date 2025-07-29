@@ -14,6 +14,10 @@ RUN apk add --no-cache \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
+# Verify Chromium installation and set permissions
+RUN chromium-browser --version && \
+    chmod +x /usr/bin/chromium-browser
+
 WORKDIR /app
 COPY package* .
 RUN npm install
@@ -36,6 +40,10 @@ RUN apk add --no-cache \
 # Set environment variables for Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+# Verify Chromium installation and set permissions
+RUN chromium-browser --version && \
+    chmod +x /usr/bin/chromium-browser
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
