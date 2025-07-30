@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      network: host
     container_name: invoify-app
     ports:
       - "3002:3000"
