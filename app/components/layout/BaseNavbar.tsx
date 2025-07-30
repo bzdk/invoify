@@ -24,7 +24,7 @@ const BaseNavbar = () => {
                 <Card className="flex flex-wrap justify-between items-center px-5 gap-5">
                     <Link href={"/"}>
                         <Image
-                            src='https://www.endao.vip/assets/images/logo.png'
+                            src='https://endao.vip/assets/images/logo.png'
                             alt="Inspirata Logo"
                             width={190}
                             height={100}
