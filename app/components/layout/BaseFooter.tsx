@@ -13,11 +13,11 @@ const BaseFooter = () => {
             <p>
                 {_t("footer.developedBy")}{" "}
                 <a
-                    href={AUTHOR_GITHUB}
+                    href="https://www.endao.vip"
                     target="_blank"
                     style={{ textDecoration: "underline" }}
                 >
-                    Ali Abbasov
+                    Inspirata Publishing (Hong Kong) Limited
                 </a>
             </p>
         </footer>
