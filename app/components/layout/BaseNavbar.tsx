@@ -22,15 +22,7 @@ const BaseNavbar = () => {
         <header className="lg:container z-[99]">
             <nav>
                 <Card className="flex flex-wrap justify-between items-center px-5 gap-5">
-                    <Link href={"/"}>
-                        <Image
-                            src='https://endao.vip/assets/images/logo.png'
-                            alt="Inspirata Logo"
-                            width={190}
-                            height={100}
-                            loading="eager"
-                        />
-                    </Link>
+                    <img src='https://endao.vip/assets/images/logo.png' width="190" alt="Inspirata Logo" />
                     {/* ? DEV Only */}
                     {devEnv && <DevDebug />}
                     <LanguageSelector />
