@@ -119,13 +119,13 @@ export const SHORT_DATE_OPTIONS: Intl.DateTimeFormatOptions = {
  */
 export const FORM_DEFAULT_VALUES = {
     sender: {
-        name: "",
-        address: "",
-        zipCode: "",
-        city: "",
-        country: "",
-        email: "",
-        phone: "",
+        name: "Timothy Training International",
+        address: "P.O. Box 795",
+        zipCode: "60544",
+        city: "Plainfield,IL",
+        country: "USA",
+        email: "info@timothyti.org",
+        phone: "+1(815)246-2760",
         customInputs: [],
     },
     receiver: {
@@ -135,7 +135,7 @@ export const FORM_DEFAULT_VALUES = {
         city: "",
         country: "",
         email: "",
-        phone: "",
+        phone: "+1(815)246-2760",
         customInputs: [],
     },
     details: {
@@ -145,11 +145,11 @@ export const FORM_DEFAULT_VALUES = {
         dueDate: "",
         items: [
             {
-                name: "",
-                description: "",
-                quantity: 0,
-                unitPrice: 0,
-                total: 0,
+                name: "General Donation",
+                description: "General Donation",
+                quantity: 1,
+                unitPrice: 1,
+                total: 1,
             },
         ],
         currency: "USD",
@@ -168,12 +168,12 @@ export const FORM_DEFAULT_VALUES = {
             costType: "amount",
         },
         paymentInformation: {
-            bankName: "",
-            accountName: "",
-            accountNumber: "",
+            bankName: "BANK_NAME",
+            accountName: "ACCOUNT_NAME",
+            accountNumber: "ACCOUNT_NUMBER",
         },
         additionalNotes: "",
-        paymentTerms: "",
+        paymentTerms: "PAID",
         totalAmountInWords: "",
         pdfTemplate: 1,
     },
@@ -205,8 +205,8 @@ export const FORM_FILL_VALUES = {
     details: {
         invoiceLogo: "",
         invoiceNumber: "INV0001",
-        invoiceDate: new Date(),
-        dueDate: new Date(),
+        invoiceDate: new Date().toISOString(),
+        dueDate: new Date().toISOString(),
         items: [
             {
                 name: "Product 1",

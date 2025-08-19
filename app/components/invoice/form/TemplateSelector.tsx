@@ -18,8 +18,8 @@ import { Label } from "@/components/ui/label";
 import {
     BaseButton,
     InvoiceTemplate1,
-    InvoiceTemplate2,
-    InvoiceTemplate3,
+    // InvoiceTemplate2,
+    // InvoiceTemplate3,
 } from "@/app/components";
 
 // Template images
@@ -44,20 +44,20 @@ const TemplateSelector = () => {
             img: template1,
             component: <InvoiceTemplate1 {...formValues} />,
         },
-        {
-            id: 2,
-            name: "Template 2",
-            description: "Sales Template 2",
-            img: template2,
-            component: <InvoiceTemplate2 {...formValues} />,
-        },
-        {
-            id: 3,
-            name: "Template 3",
-            description: "Donation Receipt",
-            img: template3,
-            component: <InvoiceTemplate3 {...formValues} />,
-        },
+        // {
+        //     id: 2,
+        //     name: "Template 2",
+        //     description: "Sales Template 2",
+        //     img: template2,
+        //     component: <InvoiceTemplate2 {...formValues} />,
+        // },
+        // {
+        //     id: 3,
+        //     name: "Template 3",
+        //     description: "Donation Receipt",
+        //     img: template3,
+        //     component: <InvoiceTemplate3 {...formValues} />,
+        // },
     ];
     return (
         <>

@@ -17,184 +17,91 @@ const InvoiceTemplate = (data: InvoiceType) => {
 
 	return (
 		<InvoiceLayout data={data}>
-			<div className='flex justify-between'>
-				<div>
-					{details.invoiceLogo && (
-						<img
-							src={details.invoiceLogo}
-							width={140}
-							height={100}
-							alt={`Logo of ${sender.name}`}
+
+			<div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+
+				<div className="bg-white p-8 border-b border-gray-200">
+					<div className="flex items-start justify-between mb-8">
+
+						<div className="flex items-start space-x-4">
+							<img
+								src='https://pub-875dbce2129e4038b9a711526553d647.r2.dev/tti/letterhead-english.png'
+								width='100%'
+								alt='Timothy Training International, Logo'
+							/>
+						</div>
+					</div>
+
+
+					<div className="text-center mb-8">
+						<h2 className="text-2xl font-bold text-gray-800 mb-2">Donation Receipt</h2>
+						<p className="text-lg text-gray-600">
+							{new Date(details.invoiceDate).toLocaleDateString("en-US", DATE_OPTIONS)}
+						</p>
+					</div>
+
+					<div className="space-y-4">
+						<div>
+							<h3 className="font-semibold text-gray-800 mb-2">Donor(s) name(s)</h3>
+							<p className="text-gray-600 border-b border-gray-300 pb-2">
+								{receiver.name}
+							</p>
+						</div>
+						<div>
+							<h3 className="font-semibold text-gray-800 mb-2">Donor's address:</h3>
+							<div className="text-gray-600 border-b border-gray-300 pb-4">
+								<p>{receiver.address && receiver.address.length > 0 ? receiver.address : null}</p>
+								<p>{receiver.city}, {receiver.country} {receiver.zipCode && receiver.zipCode.length > 0 ? `, ${receiver.zipCode}` : null}</p>
+							</div>
+						</div>
+					</div>
+
+					<div className="space-y-4 py-6">
+						<p className="text-gray-800">Dear Donor(s),</p>
+						
+						<div className="space-y-3 text-gray-800 leading-relaxed">
+							<p>
+								Thank you for your donation. This is a receipt for your gracious donation to Timothy Training 
+								International, NFP. <span className="font-semibold text-red-600">TTI</span> is a non-profit under section 501 (c) (3) of the Internal Revenue 
+								Code. Contributions to <span className="font-semibold text-red-600">TTI</span> are tax-exempt in the U.S.A. Please keep this receipt for 
+								your record. No goods or services were given to you by <span className="font-semibold text-red-600">TTI</span> in exchange for your donation.
+							</p>
+						</div>
+					</div>
+
+					<div className="bg-gray-50 p-6 rounded-lg">
+						<h3 className="font-semibold text-gray-800 mb-4 underline">
+							Donation amount / Received via / Date donation received
+						</h3>
+						<div className="space-y-2">
+							<p className="text-lg font-medium text-gray-800">
+							{formatNumberWithCommas(Number(details.totalAmount))} {details.currency}
+							</p>
+						</div>
+					</div>
+
+					<div className="py-6 space-y-4">
+						<p className="text-gray-800">Blessings in Christ,</p>
+						
+						<div className="pt-8">
+							<p className="font-semibold text-gray-800">Rev. Janson Chan</p>
+							<p className="text-gray-600">Executive Director</p>
+						</div>
+						
+						<div className="pt-4">
+							<p className="font-semibold text-gray-800">IRS Tax Number 26-2901737</p>
+						</div>
+					</div>
+				</div>
+
+				<div className="bg-white p-6 border-t border-gray-200">
+					<div className="text-center space-y-2 text-sm text-gray-700">
+						<img 
+							src='https://pub-875dbce2129e4038b9a711526553d647.r2.dev/tti/letterfoot-english.jpg'
+							width='100%'
+							alt='Timothy Training International, Logo'
 						/>
-					)}
-					<h1 className='mt-2 text-lg md:text-xl font-semibold text-blue-600'>{sender.name}</h1>
-				</div>
-				<div className='text-right'>
-					<h2 className='text-2xl md:text-3xl font-semibold text-gray-800'>Invoice #</h2>
-					<span className='mt-1 block text-gray-500'>{details.invoiceNumber}</span>
-					<address className='mt-4 not-italic text-gray-800'>
-						{sender.address}
-						<br />
-						{sender.zipCode}, {sender.city}
-						<br />
-						{sender.country}
-						<br />
-					</address>
-				</div>
-			</div>
-
-			<div className='mt-6 grid sm:grid-cols-2 gap-3'>
-				<div>
-					<h3 className='text-lg font-semibold text-gray-800'>Bill to:</h3>
-					<h3 className='text-lg font-semibold text-gray-800'>{receiver.name}</h3>
-					{}
-					<address className='mt-2 not-italic text-gray-500'>
-						{receiver.address && receiver.address.length > 0 ? receiver.address : null}
-						{receiver.zipCode && receiver.zipCode.length > 0 ? `, ${receiver.zipCode}` : null}
-						<br />
-						{receiver.city}, {receiver.country}
-						<br />
-					</address>
-				</div>
-				<div className='sm:text-right space-y-2'>
-					<div className='grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2'>
-						<dl className='grid sm:grid-cols-6 gap-x-3'>
-							<dt className='col-span-3 font-semibold text-gray-800'>Invoice date:</dt>
-							<dd className='col-span-3 text-gray-500'>
-								{new Date(details.invoiceDate).toLocaleDateString("en-US", DATE_OPTIONS)}
-							</dd>
-						</dl>
-						<dl className='grid sm:grid-cols-6 gap-x-3'>
-							<dt className='col-span-3 font-semibold text-gray-800'>Due date:</dt>
-							<dd className='col-span-3 text-gray-500'>
-								{new Date(details.dueDate).toLocaleDateString("en-US", DATE_OPTIONS)}
-							</dd>
-						</dl>
 					</div>
-				</div>
-			</div>
-
-			<div className='mt-3'>
-				<div className='border border-gray-200 p-1 rounded-lg space-y-1'>
-					<div className='hidden sm:grid sm:grid-cols-5'>
-						<div className='sm:col-span-2 text-xs font-medium text-gray-500 uppercase'>Item</div>
-						<div className='text-left text-xs font-medium text-gray-500 uppercase'>Qty</div>
-						<div className='text-left text-xs font-medium text-gray-500 uppercase'>Rate</div>
-						<div className='text-right text-xs font-medium text-gray-500 uppercase'>Amount</div>
-					</div>
-					<div className='hidden sm:block border-b border-gray-200'></div>
-					<div className='grid grid-cols-3 sm:grid-cols-5 gap-y-1'>
-						{details.items.map((item, index) => (
-							<React.Fragment key={index}>
-								<div className='col-span-full sm:col-span-2 border-b border-gray-300'>
-									<p className='font-medium text-gray-800'>{item.name}</p>
-									<p className='text-xs text-gray-600 whitespace-pre-line'>{item.description}</p>
-								</div>
-								<div className='border-b border-gray-300'>
-									<p className='text-gray-800'>{item.quantity}</p>
-								</div>
-								<div className='border-b border-gray-300'>
-									<p className='text-gray-800'>
-										{item.unitPrice} {details.currency}
-									</p>
-								</div>
-								<div className='border-b border-gray-300'>
-									<p className='sm:text-right text-gray-800'>
-										{item.total} {details.currency}
-									</p>
-								</div>
-							</React.Fragment>
-						))}
-					</div>
-					<div className='sm:hidden border-b border-gray-200'></div>
-				</div>
-			</div>
-
-			<div className='mt-2 flex sm:justify-end'>
-				<div className='sm:text-right space-y-2'>
-					<div className='grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2'>
-						<dl className='grid sm:grid-cols-5 gap-x-3'>
-							<dt className='col-span-3 font-semibold text-gray-800'>Subtotal:</dt>
-							<dd className='col-span-2 text-gray-500'>
-								{formatNumberWithCommas(Number(details.subTotal))} {details.currency}
-							</dd>
-						</dl>
-						{details.discountDetails?.amount != undefined &&
-							details.discountDetails?.amount > 0 && (
-								<dl className='grid sm:grid-cols-5 gap-x-3'>
-									<dt className='col-span-3 font-semibold text-gray-800'>Discount:</dt>
-									<dd className='col-span-2 text-gray-500'>
-										{details.discountDetails.amountType === "amount"
-											? `- ${details.discountDetails.amount} ${details.currency}`
-											: `- ${details.discountDetails.amount}%`}
-									</dd>
-								</dl>
-							)}
-						{details.taxDetails?.amount != undefined && details.taxDetails?.amount > 0 && (
-							<dl className='grid sm:grid-cols-5 gap-x-3'>
-								<dt className='col-span-3 font-semibold text-gray-800'>Tax:</dt>
-								<dd className='col-span-2 text-gray-500'>
-									{details.taxDetails.amountType === "amount"
-										? `+ ${details.taxDetails.amount} ${details.currency}`
-										: `+ ${details.taxDetails.amount}%`}
-								</dd>
-							</dl>
-						)}
-						{details.shippingDetails?.cost != undefined && details.shippingDetails?.cost > 0 && (
-							<dl className='grid sm:grid-cols-5 gap-x-3'>
-								<dt className='col-span-3 font-semibold text-gray-800'>Shipping:</dt>
-								<dd className='col-span-2 text-gray-500'>
-									{details.shippingDetails.costType === "amount"
-										? `+ ${details.shippingDetails.cost} ${details.currency}`
-										: `+ ${details.shippingDetails.cost}%`}
-								</dd>
-							</dl>
-						)}
-						<dl className='grid sm:grid-cols-5 gap-x-3'>
-							<dt className='col-span-3 font-semibold text-gray-800'>Total:</dt>
-							<dd className='col-span-2 text-gray-500'>
-								{formatNumberWithCommas(Number(details.totalAmount))} {details.currency}
-							</dd>
-						</dl>
-						{details.totalAmountInWords && (
-							<dl className='grid sm:grid-cols-5 gap-x-3'>
-								<dt className='col-span-3 font-semibold text-gray-800'>Total in words:</dt>
-								<dd className='col-span-2 text-gray-500'>
-									<em>
-										{details.totalAmountInWords} {details.currency}
-									</em>
-								</dd>
-							</dl>
-						)}
-					</div>
-				</div>
-			</div>
-
-			<div>
-				<div className='my-4'>
-					<div className='my-2'>
-						<p className='font-semibold text-blue-600'>Additional notes:</p>
-						<p className='font-regular text-gray-800'>{details.additionalNotes}</p>
-					</div>
-					<div className='my-2'>
-						<p className='font-semibold text-blue-600'>Payment terms:</p>
-						<p className='font-regular text-gray-800'>{details.paymentTerms}</p>
-					</div>
-					<div className='my-2'>
-						<span className='font-semibold text-md text-gray-800'>
-							Please send the payment to this address
-							<p className='text-sm'>Bank: {details.paymentInformation?.bankName}</p>
-							<p className='text-sm'>Account name: {details.paymentInformation?.accountName}</p>
-							<p className='text-sm'>Account no: {details.paymentInformation?.accountNumber}</p>
-						</span>
-					</div>
-				</div>
-				<p className='text-gray-500 text-sm'>
-					If you have any questions concerning this invoice, use the following contact information:
-				</p>
-				<div>
-					<p className='block text-sm font-medium text-gray-800'>{sender.email}</p>
-					<p className='block text-sm font-medium text-gray-800'>{sender.phone}</p>
 				</div>
 			</div>
 

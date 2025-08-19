@@ -16,7 +16,11 @@ const InvoiceTemplate2 = (data: InvoiceType) => {
     const { sender, receiver, details } = data;
     return (
         <InvoiceLayout data={data}>
-            <div className="flex justify-between">
+
+            
+
+
+            {/* <div className="flex justify-between">
                 <div>
                     <h2 className="text-2xl md:text-3xl font-semibold text-gray-800">
                         Invoice #
@@ -272,7 +276,7 @@ const InvoiceTemplate2 = (data: InvoiceType) => {
                         {sender.phone}
                     </p>
                 </div>
-            </div>
+            </div> */}
 
             {/* Signature */}
             {details?.signature?.data && isDataUrl(details?.signature?.data) ? (

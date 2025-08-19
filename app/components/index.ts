@@ -88,8 +88,8 @@ import NewInvoiceAlert from "./modals/alerts/NewInvoiceAlert";
 import DynamicInvoiceTemplate from "./templates/invoice-pdf/DynamicInvoiceTemplate";
 import InvoiceLayout from "./templates/invoice-pdf/InvoiceLayout";
 import InvoiceTemplate1 from "./templates/invoice-pdf/InvoiceTemplate1";
-import InvoiceTemplate2 from "./templates/invoice-pdf/InvoiceTemplate2";
-import InvoiceTemplate3 from "./templates/invoice-pdf/InvoiceTemplate3";
+// import InvoiceTemplate2 from "./templates/invoice-pdf/InvoiceTemplate2";
+// import InvoiceTemplate3 from "./templates/invoice-pdf/InvoiceTemplate3";
 
 // Email templates
 import SendPdfEmail from "./templates/email/SendPdfEmail";
@@ -146,8 +146,8 @@ export {
     DynamicInvoiceTemplate,
     InvoiceLayout,
     InvoiceTemplate1,
-    InvoiceTemplate2,
-    InvoiceTemplate3,
+   //  InvoiceTemplate2,
+   //  InvoiceTemplate3,
     SendPdfEmail,
     DevDebug,
 };
