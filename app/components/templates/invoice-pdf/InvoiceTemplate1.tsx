@@ -81,9 +81,9 @@ const InvoiceTemplate = (data: InvoiceType) => {
 					</div>
 
 					<div className="py-6 space-y-4">
-						<p className="text-gray-800">Blessings in Christ,</p>
 						
 						<div className="pt-8">
+							<p className="text-gray-800">Blessings in Christ,</p>
 							<p className="font-semibold text-gray-800">Rev. Janson Chan</p>
 							<p className="text-gray-600">Executive Director</p>
 						</div>
@@ -92,9 +92,7 @@ const InvoiceTemplate = (data: InvoiceType) => {
 							<p className="font-semibold text-gray-800">IRS Tax Number 26-2901737</p>
 						</div>
 					</div>
-				</div>
 
-				<div className="bg-white p-6 border-t border-gray-200">
 					<div className="text-center space-y-2 text-sm text-gray-700">
 						<img 
 							src='https://pub-875dbce2129e4038b9a711526553d647.r2.dev/tti/letterfoot-english.jpg'
