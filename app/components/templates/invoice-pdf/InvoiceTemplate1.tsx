@@ -34,22 +34,17 @@ const InvoiceTemplate = (data: InvoiceType) => {
 
 
 					<div className="text-center mb-8">
-						<h2 className="text-2xl font-bold text-gray-800 mb-2">Donation Receipt</h2>
-						<p className="text-lg text-gray-600">
+						<h4 className="text-xl font-bold text-gray-800 mb-2">Donation Receipt (#{details.invoiceNumber})</h4>
+						<p className="text-md text-gray-600">
 							{new Date(details.invoiceDate).toLocaleDateString("en-US", DATE_OPTIONS)}
 						</p>
 					</div>
 
 					<div className="space-y-4">
 						<div>
-							<h3 className="font-semibold text-gray-800 mb-2">Donor(s) name(s)</h3>
-							<p className="text-gray-600 border-b border-gray-300 pb-2">
-								{receiver.name}
-							</p>
-						</div>
-						<div>
 							<h3 className="font-semibold text-gray-800 mb-2">Donor's address:</h3>
 							<div className="text-gray-600 border-b border-gray-300 pb-4">
+								<p>{receiver.name}</p>
 								<p>{receiver.address && receiver.address.length > 0 ? receiver.address : null}</p>
 								<p>{receiver.city}, {receiver.country} {receiver.zipCode && receiver.zipCode.length > 0 ? `, ${receiver.zipCode}` : null}</p>
 							</div>
@@ -57,7 +52,7 @@ const InvoiceTemplate = (data: InvoiceType) => {
 					</div>
 
 					<div className="space-y-4 py-6">
-						<p className="text-gray-800">Dear Donor(s),</p>
+						<p className="text-gray-800">Dear {receiver.name},</p>
 						
 						<div className="space-y-3 text-gray-800 leading-relaxed">
 							<p>
@@ -69,18 +64,17 @@ const InvoiceTemplate = (data: InvoiceType) => {
 						</div>
 					</div>
 
-					<div className="bg-gray-50 p-6 rounded-lg">
-						<h3 className="font-semibold text-gray-800 mb-4 underline">
-							Donation amount / Received via / Date donation received
-						</h3>
-						<div className="space-y-2">
-							<p className="text-lg font-medium text-gray-800">
-							{formatNumberWithCommas(Number(details.totalAmount))} {details.currency}
-							</p>
-						</div>
+					<div className="bg-gray-50 p-2 rounded-lg">
+						<p className="font-semibold text-gray-800 mb-4">
+							Donation amount: {formatNumberWithCommas(Number(details.totalAmount))} {details.currency}
+							<br />
+							Received via: {details.paymentInformation?.bankName} ({details.paymentInformation?.accountName})
+							<br />
+							Received at: {new Date(details.dueDate).toLocaleDateString("en-US", DATE_OPTIONS)}
+						</p>
 					</div>
 
-					<div className="py-6 space-y-4">
+					<div className="py-2 space-y-4">
 						
 						<div className="pt-8">
 							<p className="text-gray-800">Blessings in Christ,</p>
@@ -88,14 +82,14 @@ const InvoiceTemplate = (data: InvoiceType) => {
 							<p className="text-gray-600">Executive Director</p>
 						</div>
 						
-						<div className="pt-4">
+						<div className="pt-4 text-center">
 							<p className="font-semibold text-gray-800">IRS Tax Number 26-2901737</p>
 						</div>
 					</div>
 
 					<div className="text-center space-y-2 text-sm text-gray-700">
 						<img 
-							src='https://pub-875dbce2129e4038b9a711526553d647.r2.dev/tti/letterfoot-english.jpg'
+							src='https://pub-875dbce2129e4038b9a711526553d647.r2.dev/tti/letterfoot-english.png'
 							width='100%'
 							alt='Timothy Training International, Logo'
 						/>

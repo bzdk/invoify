@@ -35,7 +35,7 @@
                 },
                 "invoiceNumber": "Invoice Number",
                 "issuedDate": "Issue Date",
-                "dueDate": "Due Date",
+                "dueDate": "Received Date",
                 "currency": "Currency"
             },
             "lineItems": {
@@ -51,9 +51,9 @@
             },
             "paymentInfo": {
                 "heading": "Payment Information",
-                "bankName": "Bank Name",
-                "accountName": "Account Name",
-                "accountNumber": "Account Number"
+                "bankName": "Payment Method",
+                "accountName": "Payment Reference",
+                "accountNumber": "* Account Number"
             },
             "summary": {
                 "heading": "Summary",
