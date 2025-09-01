@@ -60,7 +60,7 @@ const InvoiceTemplate = (data: InvoiceType) => {
 								Thank you for your donation. This is a receipt for your gracious donation to Timothy Training 
 								International, NFP. <span className="font-semibold text-red-600">TTi</span> is a non-profit under section 501 (c) (3) of the Internal Revenue 
 								Code. Contributions to <span className="font-semibold text-red-600">TTi</span> are tax-exempt in the U.S.A. Please keep this receipt for 
-								your record. No goods or services were given to you by <span className="font-semibold text-red-600">TTI</span> in exchange for your donation.
+								your record. No goods or services were given to you by <span className="font-semibold text-red-600">TTi</span> in exchange for your donation.
 							</p>
 						</div>
 					</div>
