@@ -46,7 +46,7 @@ const InvoiceTemplate = (data: InvoiceType) => {
 							<div className="text-gray-600 border-b border-gray-300 pb-4">
 								<p>{receiver.name}</p>
 								<p>{receiver.address && receiver.address.length > 0 ? receiver.address : null}</p>
-								<p>{receiver.city}, {receiver.zipCode && receiver.zipCode.length > 0 ? `, ${receiver.zipCode}` : null}</p>
+								<p>{receiver.city} {receiver.zipCode && receiver.zipCode.length > 0 ? `${receiver.zipCode}` : null}</p>
 								<p>{receiver.country}</p>
 							</div>
 						</div>
